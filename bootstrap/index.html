@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Pagina bootstrap</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet"  href="css/form_css.css">
+	<!-- cdn last version -->
+	<script src="https://use.fontawesome.com/c0c36d5a6a.js"></script>
+</head>
+<body>
+	<div class="container mt-5">
+	<h1>Exemplo de login</h1>
+	<form>
+	  <div class="form-group">
+	    <label for="email">Email</label>
+	     <p class="text-danger hide-p" id ="alert_tamanho_char">
+	     	<i class="fa fa-exclamation-circle" aria-hidden="true">
+	     	</i>Email Invalido
+	     </p>
+	    <input type="email" class="form-control" id="email"  placeholder="Insira seu email" onblur="valida_email('email')">
+	    <small id="emailHelp" class="form-text text-muted">Nao vamos compartilhar seu email com ninguem</small>
+	  </div>
+	  <div class="form-group">
+	    <label for="exampleInputPassword1">Senha</label>
+	    <p class="text-danger hide-p" id ="alert_tamanho_char_senha">
+	    	<i class="fa fa-exclamation-circle" aria-hidden="true">		
+	    	</i>Senha Invalida
+	    </p>
+	    <input type="password" class="form-control" id="senha"  placeholder="Insira sua senha" onblur="valida_senha('senha')">
+	  </div>
+	  <div class="form-check">
+	    <input type="checkbox" class="form-check-input" id="ver_senha" onchange="mostra_senha('senha','ver_senha')">
+	    <label class="form-check-label" for="exampleCheck1">Ver senha</label>
+	  </div>
+	  <button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+	 
+	</div>
+	<!-- <script src="js/bootstrap.min.js"></script> -->
+	<script src="js/valida_form.js"></script>
+
+</body>
+</html>

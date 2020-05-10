@@ -1,0 +1,206 @@
+<!--https://ava.ensinabox.com/certificado/1399TYTUB94 CERTIFICADO DO CURSO-->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Dynamic Table</title>
+	<!--import do jquery -->
+	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+	<!-- import do css do bootstrap-->
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<!-- import do js do bootstrap -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	<!-- cdn last version -->
+	<script src="https://use.fontawesome.com/c0c36d5a6a.js"></script>
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
+	<!-- TODO: Add SDKs for Firebase products that you want to use https://firebase.google.com/docs/web/setup#available-libraries -->
+	<script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-database.js"></script>
+	
+
+</head>
+<body>
+	<div class="container mt-5">
+		<h1>Exemplo de tabela</h1>
+		<table class="table table-dark">
+	  		<thead>
+			    <tr>
+			      <th scope="col">ID</th>
+			      <th scope="col">Nome</th>
+			      <th scope="col">email</th>
+			      <th scope="col">Data de nascimento</th>
+			       <th scope="col">Atualizar</th>
+			      <th scope="col">Remover</th>
+			    </tr>
+	 		</thead>
+		  	<tbody id ="tbody-table">
+		    	<!-- insersao de dados da tabela -->
+		  	</tbody>
+		</table>
+		
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id ="adiciona_usu()">Adicionar</button>
+	
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Novo Usuario</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <form>
+		          <div class="form-group">
+		            <label for="recipient-name" class="col-form-label">Nome:</label>
+		            <input type="text" class="form-control" id="nome">
+		          </div>
+		          <div class="form-group">
+		            <label for="recipient-name" class="col-form-label">Email:</label>
+		            <input type="text" class="form-control" id="email">
+		          </div>
+		          <div class="form-group">
+		            <label for="recipient-name" class="col-form-label">Data de Nascimento:</label>
+		            <input type="date" class="form-control" id="data">
+		          </div>
+		        </form>
+		      </div>s
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button onclick ="adiciona_usu()" type="button" class="btn btn-primary">Send message</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="exampleModal-update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Novo Usuario</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <form>
+		          <div class="form-group">
+		            <label for="recipient-name" class="col-form-label">Nome:</label>
+		            <input type="text" class="form-control" id="nome-update">
+		          </div>
+		          <div class="form-group">
+		            <label for="recipient-name" class="col-form-label">Email:</label>
+		            <input type="text" class="form-control" id="email-update">
+		          </div>
+		          <div class="form-group">
+		            <label for="recipient-name" class="col-form-label">Data de Nascimento:</label>
+		            <input type="date" class="form-control" id="data-update">
+		          </div>
+		        </form>
+		      </div>s
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button onclick ="adiciona_usu()" type="button" class="btn btn-primary">Send message</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</div>
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
+
+	<!-- TODO: Add SDKs for Firebase products that you want to use
+	     https://firebase.google.com/docs/web/setup#available-libraries -->
+	<script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-analytics.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-database.js"></script>
+	<script>
+	var key = 0;
+	var key_usu_acionado = 0;
+	// Inserçao de usuario
+	function adiciona_usu(){
+		var nome = $('#nome').val();
+		var email = $('#email').val();
+		var data = $('#data').val();
+		// inserçao do usuario no banco de dados
+		adiciona_usu_db(nome,email,data,key);
+	}
+
+	function set_key_usu_adicionado(id){
+		set_key_usu_acionado = id;
+	}
+	function update_usu(param,id = 0){
+		if (param == 0){
+			select_usu_db(id);
+			key_usu_acionado(id);
+		}
+		if(param == 1){
+			var nome = $('#nome-update').val();
+			var email = $('#email-update').val();
+			var data = $('#data-update').val();
+			adiciona_usu_db(nome,email,data,id,key_usu_acionado);
+		}
+	}
+
+	  // Your web app's Firebase configuration
+	  var firebaseConfig = {
+	    apiKey: "AIzaSyAgEHo1iObDpsjGgpASVSwaJRngMottZhY",
+	    authDomain: "curso-js-2-de679.firebaseapp.com",
+	    databaseURL: "https://curso-js-2-de679.firebaseio.com",
+	    projectId: "curso-js-2-de679",
+	    storageBucket: "curso-js-2-de679.appspot.com",
+	    messagingSenderId: "203468268567",
+	    appId: "1:203468268567:web:2e7e5493c8401cb759e852",
+	    measurementId: "G-477DB8TJXS"
+	  };
+	  // Initialize Firebase
+	  firebase.initializeApp(firebaseConfig);
+	  // Way to start  
+	  firebase.analytics();
+
+	  function adiciona_usu_db(nome,email,data,key){
+	  			firebase.database().ref('usuarios/'+key).set({
+	  			nome: nome,
+	  			email:email,
+	  			data: data
+	  	});
+	  } 
+
+	  function select_usu_db(id){
+	  	firebase.database().ref('usuarios/'+id).once("value").then(function(snapshot){
+	  		return snapshot.val()
+	  		var db_usu_val =  snapshot.val();
+			// user data selection 
+			$('#nome-update').val(db_usu_val.nome);
+			$('#email-update').val(db_usu_val.email);
+			$('#data-update').val(db_usu_val.data);
+	  	});
+
+	  }
+	
+	  	firebase.database().ref('usuarios').on('child_added',function(data){
+	  		var data_db = data.val();
+	  		adiciona_usus_na_tabela(data_db.nome,data_db.email,data_db.data);
+	  	});
+
+	 function adiciona_usus_na_tabela(nome,email,data){
+
+		$("#tbody-table").append("<tr id='usu-"+key+"'>" +
+		"<th scope = 'row'>" + key + "<th>" +
+		"<th scope = 'row'>" + nome + "<th>" +
+		"<td>"+ email +"</td>" +
+		"<td>"+ data +"</td>" +
+		"<td><button onclick ='update_usu(0,"+ key +")'type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal-update'>Atualizar</button></td>" +
+		"<td><button onclick ='remove_usu()'type='button' class='btn btn-danger' data-toggle='modal' data-target='#exampleModal'>Remover</button></td>" +
+		"</tr>");
+
+		key++;
+		}
+
+		$('.atualizar-bd').on('click',function(data){
+			update_usu(1);
+
+		});
+	</script>
+</body>
+</html>
